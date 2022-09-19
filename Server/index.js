@@ -1,7 +1,9 @@
 const express = require('express'),
   app = express(),
   port = 4000,
-  mongoose = require('mongoose');
+  mongoose = require('mongoose'),
+  mangaRoute = require('./routes/mangaRoutes'),
+  userRoute = require('./routes/userRoutes');
 
 cors = require('cors');
 app.use(express.urlencoded({ extended: true }));
@@ -20,6 +22,8 @@ async function connecting() {
 }
 connecting();
 
+app.use('/manga', mangaRoute);
+app.use('/user', userRoute);
 app.listen(port, () => {
   console.log('This server is running on port', port);
 });
