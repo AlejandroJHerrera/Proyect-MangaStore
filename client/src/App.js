@@ -1,54 +1,46 @@
 import './App.css';
-import { useState } from 'react';
 import axios from 'axios';
+import NavBar from './components/NavBar';
+import { useEffect, useState } from 'react';
 
 function App() {
-  const [manga, setManga] = useState();
-  const [user, setUser] = useState();
+  const [manga, setManga] = useState([]);
 
-  const handleOnClickManga = () => {
-    let url = 'http://localhost:4000/manga/';
+  const mangaCollection = () => {
+    let url = 'https://api.jikan.moe/v4/manga?page=1&limit=8';
     axios
       .get(url)
       .then((res) => {
         let mangas = res.data;
-        console.log(res.data);
-        setManga(mangas);
+        setManga(mangas.data);
+        console.log(manga);
       })
-      .catch((e) => console.log(e));
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
-  const handleOnClickUser = () => {
-    let url = 'http://localhost:4000/user/';
-    axios
-      .get(url)
-      .then((res) => {
-        let users = res.data;
-        console.log(res.data);
-        setUser(users);
-      })
-      .catch((e) => console.log(e));
-  };
+  useEffect(() => {
+    mangaCollection();
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <div className="App">
+      <NavBar />
       <div>
-        <button onClick={handleOnClickManga}>Show All Mangas</button>
-        {manga &&
-          manga.map((e, i) => (
-            <div key={i}>
-              <p>{e.slug}</p>
-            </div>
-          ))}
-      </div>
-      <div>
-        <button onClick={handleOnClickUser}>Show All Users</button>
-        {user &&
-          user.map((e, i) => (
-            <div key={i}>
-              <p>{e.name}</p>
-            </div>
-          ))}
+        <div className="main">
+          <h1>Top Manga</h1>
+          <div className="homeCollection">
+            {manga &&
+              manga.map((e, i) => (
+                <div className="homeCard" key={i}>
+                  <img src={e.images.jpg.image_url} alt={e.title} />
+                  <h1>{e.title}</h1>
+                </div>
+              ))}
+          </div>
+        </div>
+        <aside></aside>
       </div>
     </div>
   );
