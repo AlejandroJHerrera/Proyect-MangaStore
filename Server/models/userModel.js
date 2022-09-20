@@ -7,7 +7,6 @@ const userSchema = new Schema(
     lastName: { type: String, require: true },
     email: { type: String, require: true },
     birthday: { type: Date, require: true },
-    userId: { type: Number, require: true, unique: true },
     gender: { type: String, require: true },
     about: { type: String, require: true },
     commentsCount: { type: Number, require: true },

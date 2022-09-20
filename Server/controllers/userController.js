@@ -18,7 +18,6 @@ class userController {
       lastName,
       email,
       birthday,
-      userId,
       gender,
       about,
       commentsCount,
@@ -36,7 +35,6 @@ class userController {
         lastName,
         email,
         birthday,
-        userId,
         gender,
         about,
         commentsCount,
@@ -51,6 +49,37 @@ class userController {
       res.send({ done });
     } catch (error) {
       res.send(error);
+    }
+  }
+
+  async delUser(req, res) {
+    let id = req.body;
+    console.log(id);
+    try {
+      const removed = await user.deleteOne(id);
+      res.send({ removed });
+    } catch (error) {
+      res.send(error);
+    }
+  }
+
+  async updateUser(req, res) {
+    let { name, newName } = req.body;
+    try {
+      const updated = await user.updateOne({ name }, { name: newName });
+      res.send({ updated });
+    } catch (error) {
+      res.send({ error });
+    }
+  }
+
+  async searchUser(req, res) {
+    let name = req.params;
+    try {
+      const result = await user.findOne(name);
+      res.send({ result });
+    } catch (error) {
+      res.send({ error });
     }
   }
 }
