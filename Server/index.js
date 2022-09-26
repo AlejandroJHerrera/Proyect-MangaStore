@@ -12,7 +12,9 @@ app.use(cors());
 
 async function connecting() {
   try {
-    await mongoose.connect("mongodb://127.0.0.1/Proyect'");
+    await mongoose.connect(
+      'mongodb+srv://Ale:1d1qRDQx2s6zCf7w@mangastore.zwy0pu7.mongodb.net/MangaStore?retryWrites=true&w=majority'
+    );
     console.log('Connected to the DB');
   } catch (error) {
     console.log(

@@ -1,19 +1,28 @@
 import React from 'react';
+import { NavLink } from 'react-router-dom';
 
 function NavBar() {
   return (
     <div className="NavBar">
       <div>
-        <p>Logo</p>
+        <NavLink to={'/'}>
+          <p>Logo</p>
+        </NavLink>
       </div>
       <div>
         <ul>
-          <li>Home</li>
-          <li>Library</li>
+          <NavLink to={'/'}>
+            <li>Home</li>
+          </NavLink>
+          <NavLink to={'/manga/library'}>
+            <li>Library</li>
+          </NavLink>
           <li>
             <input type="text" />
           </li>
-          <li>Login/Register</li>
+          <NavLink to={'/user/login'}>
+            <li>Login/Register</li>
+          </NavLink>
         </ul>
       </div>
     </div>

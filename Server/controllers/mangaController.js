@@ -11,42 +11,29 @@ class mangaController {
   }
 
   async addManga(req, res) {
-    let {
-      type,
-      slug,
-      synopsis,
-      averageRating,
-      userCount,
-      favortiesCount,
-      startDate,
-      endDate,
-      ageRating,
-      status,
-      posterImage,
-      episodeCount,
-      youtubeVideoId,
-      category,
-      categoryId,
-    } = req.body;
-    console.log(req.body);
+    debugger;
+    // let [
+    //   {
+    //     mal_id,
+    //     title,
+    //     title_japanese,
+    //     synopsis,
+    //     type,
+    //     themes,
+    //     status,
+    //     rank,
+    //     popularity,
+    //     members,
+    //     authors,
+    //     demographics,
+    //     images,
+    //     chapters,
+    //     publishing,
+    //     score,
+    //   },
+    // ] = req.body;
     try {
-      const done = await manga.create({
-        type,
-        slug,
-        synopsis,
-        averageRating,
-        userCount,
-        favortiesCount,
-        startDate,
-        endDate,
-        ageRating,
-        status,
-        posterImage,
-        episodeCount,
-        youtubeVideoId,
-        category,
-        categoryId,
-      });
+      const done = await manga.insertMany(req.body);
       res.send({ done });
     } catch (error) {
       res.send({ error });

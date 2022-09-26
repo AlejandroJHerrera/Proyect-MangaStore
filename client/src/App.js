@@ -1,47 +1,31 @@
 import './App.css';
-import axios from 'axios';
 import NavBar from './components/NavBar';
-import { useEffect, useState } from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import Home from './views/Home';
+import Item from './views/Item';
+import Login from './views/Login';
+import Register from './views/Register';
+import PasswordReset from './views/PasswordReset';
+import { RecoilRoot } from 'recoil';
+import Library from './views/Library';
 
 function App() {
-  const [manga, setManga] = useState([]);
-
-  const mangaCollection = () => {
-    let url = 'https://api.jikan.moe/v4/manga?page=1&limit=8';
-    axios
-      .get(url)
-      .then((res) => {
-        let mangas = res.data;
-        setManga(mangas.data);
-        console.log(manga);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-
-  useEffect(() => {
-    mangaCollection();
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
-
   return (
     <div className="App">
-      <NavBar />
-      <div>
-        <div className="main">
-          <h1>Top Manga</h1>
-          <div className="homeCollection">
-            {manga &&
-              manga.map((e, i) => (
-                <div className="homeCard" key={i}>
-                  <img src={e.images.jpg.image_url} alt={e.title} />
-                  <h1>{e.title}</h1>
-                </div>
-              ))}
-          </div>
-        </div>
-        <aside></aside>
-      </div>
+      <RecoilRoot>
+        <Router>
+          <NavBar />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/manga/:id" element={<Item />} />
+            <Route path="/manga/library" element={<Library />} />
+            <Route path="/user/login" element={<Login />} />
+            <Route path="/user/register" element={<Register />} />
+            <Route path="/user/passReset" element={<PasswordReset />} />
+          </Routes>
+          {/* <Footer/> */}
+        </Router>
+      </RecoilRoot>
     </div>
   );
 }

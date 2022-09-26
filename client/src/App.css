@@ -17,17 +17,22 @@
   display: inline;
   padding: 8px;
 }
+.NavBar a {
+  text-decoration: none;
+  color: white;
+}
 
 .main {
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  justify-content: space-around;
+  width: 100%;
 }
 
 .homeCollection {
   display: grid;
-  grid-template-columns: repeat(4, 2fr);
-  width: 90%;
+  grid-template-columns: repeat(4, 200px);
+  overflow-y: scroll;
+  height: 86vh;
 }
 
 .homeCard {
@@ -38,11 +43,136 @@
 }
 
 .homeCard img {
-  height: 300px;
-  width: 220px;
+  height: 250px;
+  width: 160px;
   border-radius: 15px;
 }
 
 .homeCard h1 {
   font-size: 1.2em;
+}
+
+.trendingAside {
+  display: block;
+  height: 86vh;
+  overflow-y: scroll;
+}
+
+.trendingAside > a div {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  width: 200px;
+  height: 170px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  border-radius: 10px;
+  margin-bottom: 30px;
+}
+
+.trendingAside h1 {
+  font-size: 1rem;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.334);
+}
+
+.singleViewMain {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 40px;
+}
+.singleViewHeader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 90%;
+  gap: 40px;
+}
+
+.singleViewSynopsis > article {
+  text-align: start;
+}
+
+.singleViewInfo {
+  display: flex;
+  margin-top: 16px;
+}
+
+.loginContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 80vh;
+}
+
+.loginCard {
+  display: flex;
+  flex-direction: column;
+  box-shadow: 4px 6px 10px grey;
+  width: 50%;
+  margin: auto;
+  padding-bottom: 20px;
+}
+
+.loginForm {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 0px;
+}
+
+.loginForm > input {
+  width: 300px;
+  padding: 10px 40px;
+}
+.buttonForm {
+  background-color: #04aa6d;
+  color: white;
+  border: none;
+  margin-top: 10px;
+  padding: 8px 70px;
+  font-size: 15px;
+}
+
+.buttonForm:hover {
+  cursor: pointer;
+  background-color: #03754b;
+}
+
+.buttonLogin {
+  border: none;
+  background-color: white;
+}
+
+.buttonLogin:hover {
+  cursor: pointer;
+  font-size: large;
+}
+
+.commentSection {
+  margin-top: 20px;
+  width: 900px;
+  gap: 20px;
+}
+
+.commentForm {
+  width: 100%;
+  height: 100%;
+}
+
+.commentForm > form > input {
+  width: 500px;
+  height: 30px;
+  margin-left: 10px;
+}
+
+.commentForm > form > button {
+  border: none;
+  margin-left: 10px;
 }
