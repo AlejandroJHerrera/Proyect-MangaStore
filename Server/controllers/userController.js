@@ -1,4 +1,9 @@
-const user = require('../models/userModel');
+require('dotenv').config();
+const user = require('../models/userModel'),
+  argon2 = require('argon2'),
+  jwt = require('jsonwebtoken'),
+  validator = require('validator');
+const jwt_secret = process.env.JWT_SECRET;
 
 class userController {
   async findAll(req, res) {
@@ -11,46 +16,65 @@ class userController {
     }
   }
 
-  async addUser(req, res) {
-    console.log(req.body);
-    let {
-      name,
-      lastName,
-      email,
-      birthday,
-      gender,
-      about,
-      commentsCount,
-      favoritesCount,
-      likesGivenCount,
-      avatar,
-      language,
-      country,
-      hasPassword,
-      isAdmin,
-    } = req.body;
+  async register(req, res) {
+    const { name, lastName, email, password } = req.body;
+    if (!name || !lastName || !email || !password)
+      return res.json({ ok: false, message: 'All fields required.' });
+    if (!validator.isEmail(email))
+      return res.json({ ok: false, message: 'Invalid credentials' });
     try {
-      const done = await user.create({
+      const user1 = await user.findOne({ email });
+      if (user1) return res.json({ ok: false, message: 'Invalid credentials' });
+      const hash = await argon2.hash(password);
+      console.log('hash ==> ', hash);
+      const newUser = {
         name,
         lastName,
         email,
-        birthday,
-        gender,
-        about,
-        commentsCount,
-        favoritesCount,
-        likesGivenCount,
-        avatar,
-        language,
-        country,
-        hasPassword,
-        isAdmin,
-      });
-      res.send({ done });
+        password: hash,
+      };
+      await user.create(newUser);
+      res.json({ ok: true, message: 'Successfully registered!' });
     } catch (error) {
-      res.send(error);
+      res.json({ ok: false, error });
     }
   }
+
+  async login(req, res) {
+    const { email, password } = req.body;
+    if (!email || !password)
+      return res.json({ ok: false, message: 'All fields required' });
+    if (!validator.isEmail(email))
+      return res.json({ ok: false, message: 'Invalid data provided' });
+
+    try {
+      const User = await user.findOne({ email });
+      if (!User)
+        return res.json({
+          ok: false,
+          message: 'No account found with this email',
+        });
+      const match = await argon2.verify(User.password, password);
+      if (match) {
+        const token = jwt.sign({ userEmail: User.email }, jwt_secret, {
+          expiresIn: '1hr',
+        });
+        res.json({ ok: true, message: 'Welcome back', token, email });
+      } else return res.json({ ok: false, message: 'Invalid data provided' });
+    } catch (error) {
+      res.json({ ok: false, error });
+    }
+  }
+
+  verify_token = (req, res) => {
+    console.log(req.headers.authorization);
+    const token = req.headers.authorization;
+    jwt.verify(token, jwt_secret, (err, succ) => {
+      err
+        ? res.json({ ok: false, message: 'something went wrong' })
+        : res.json({ pk: true, succ });
+    });
+  };
 
   async delUser(req, res) {
     let id = req.body;

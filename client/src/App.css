@@ -52,6 +52,11 @@
   font-size: 1.2em;
 }
 
+.homeCollection a {
+  text-decoration: none;
+  color: black;
+}
+
 .trendingAside {
   display: block;
   height: 86vh;
@@ -63,8 +68,8 @@
   flex-direction: column;
   justify-content: flex-end;
   align-items: center;
-  width: 200px;
-  height: 170px;
+  width: 180px;
+  height: 190px;
   background-size: cover;
   background-repeat: no-repeat;
   border-radius: 10px;
@@ -175,4 +180,40 @@
 .commentForm > form > button {
   border: none;
   margin-left: 10px;
+}
+
+.libraryContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.libraryContainer input {
+  width: 250px;
+  margin-bottom: 10px;
+}
+
+.libraryOption span {
+  margin: 0px 10px;
+}
+.libraryCollection {
+  display: inline-grid;
+  grid-template-columns: repeat(6, 220px);
+}
+
+.libraryCard {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 250px;
+  width: 200px;
+  margin-top: 20px;
+}
+
+.libraryCard img {
+  height: 200px;
+  width: 130px;
+  border-radius: 20px;
 }

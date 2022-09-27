@@ -5,6 +5,8 @@ const express = require('express'),
   mangaRoute = require('./routes/mangaRoutes'),
   userRoute = require('./routes/userRoutes');
 
+require('dotenv').config();
+
 cors = require('cors');
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -12,9 +14,7 @@ app.use(cors());
 
 async function connecting() {
   try {
-    await mongoose.connect(
-      'mongodb+srv://Ale:1d1qRDQx2s6zCf7w@mangastore.zwy0pu7.mongodb.net/MangaStore?retryWrites=true&w=majority'
-    );
+    await mongoose.connect(process.env.MONGO);
     console.log('Connected to the DB');
   } catch (error) {
     console.log(

@@ -6,7 +6,6 @@ import { useRecoilState } from 'recoil';
 import { mangasState } from '../atoms';
 
 function Home() {
-  const [manga, setManga] = useState([]);
   const [aside, setAside] = useState([]);
   const [mangas, setMangas] = useRecoilState(mangasState);
 
@@ -40,9 +39,7 @@ function Home() {
       .get(url)
       .then((res) => {
         let mangasfromDB = res.data;
-        setManga(mangasfromDB);
         setMangas(mangasfromDB);
-        console.log(mangas);
       })
       .catch((error) => {
         console.log(error);
@@ -72,8 +69,8 @@ function Home() {
       <h1>Top Manga</h1>
       <div className="main">
         <div className="homeCollection">
-          {manga &&
-            manga.slice(0, 12).map((e, i) => (
+          {mangas &&
+            mangas.slice(0, 12).map((e, i) => (
               <NavLink to={`/manga/${e.mal_id}`} key={i}>
                 <div className="homeCard" key={i}>
                   <img src={e.images.webp.large_image_url} alt={e.title} />
