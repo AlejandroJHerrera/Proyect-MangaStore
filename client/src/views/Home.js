@@ -70,7 +70,7 @@ function Home() {
       <div className="main">
         <div className="homeCollection">
           {mangas &&
-            mangas.slice(0, 12).map((e, i) => (
+            mangas.map((e, i) => (
               <NavLink to={`/manga/${e.mal_id}`} key={i}>
                 <div className="homeCard" key={i}>
                   <img src={e.images.webp.large_image_url} alt={e.title} />

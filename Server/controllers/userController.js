@@ -98,9 +98,10 @@ class userController {
   }
 
   async searchUser(req, res) {
-    let name = req.params;
+    let email = req.params;
+    debugger;
     try {
-      const result = await user.findOne(name);
+      const result = await user.findOne(email);
       res.send({ result });
     } catch (error) {
       res.send({ error });

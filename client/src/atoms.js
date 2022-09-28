@@ -9,3 +9,8 @@ export const isLoged = atom({
   key: 'isLoged',
   default: false,
 });
+
+export const userLogged = atom({
+  key: 'userLogged',
+  default: '',
+});

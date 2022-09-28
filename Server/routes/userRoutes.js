@@ -26,7 +26,7 @@ router.post('/delete', userController.delUser);
 
 router.post('/update', userController.updateUser);
 
-//This route is used to search for users by name //
-router.get('/:name', userController.searchUser);
+//This route is used to search for users by email //
+router.get('/:email', userController.searchUser);
 
 module.exports = router;
