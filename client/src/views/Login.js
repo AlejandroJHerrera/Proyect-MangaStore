@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import axios from '../config';
 import * as jose from 'jose';
 
 function Login(props) {
   const [user, setUser] = useState({ email: '', password: '' });
+
   const handleOnChange = (e) => {
     setUser({ ...user, [e.target.name]: e.target.value });
     console.log(user);
@@ -15,8 +16,7 @@ function Login(props) {
   const handleOnSubmit = async (e) => {
     e.preventDefault();
     e.target.reset();
-
-    let url = 'http://localhost:4000/user/login';
+    let url = '/user/login';
     try {
       const response = await axios.post(url, {
         email: user.email,
@@ -26,12 +26,12 @@ function Login(props) {
         let decodedToken = jose.decodeJwt(response.data.token);
         console.log(
           'Email extracted from the JWT token after login: ',
-          decodedToken.userEmail
+          decodedToken
         );
         setTimeout(() => {
           props.login(response.data.token);
-          navigate('/user/home');
-        }, 2000);
+          navigate('/user/profile');
+        }, 1000);
       }
     } catch (error) {
       console.log(error);

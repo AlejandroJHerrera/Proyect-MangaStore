@@ -1,9 +1,14 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { useRecoilValue } from 'recoil';
+import { userInfoSelector } from '../atoms';
+import { Image } from 'cloudinary-react';
 
 function Item() {
   const [single, setSingle] = useState();
+  const user = useRecoilValue(userInfoSelector);
+  console.log(user);
   let mangaId = useParams();
 
   const mangaInfo = () => {
@@ -50,9 +55,10 @@ function Item() {
         <h1>Comments</h1>
         <div className="commentForm">
           <form>
-            <img
-              src={single && single.images.webp.small_image_url}
-              alt={single && single.title}
+            <Image
+              style={{ width: 100 }}
+              cloudName="dipryi3mp"
+              publicId={user.avatar}
             />
             <input type="text" placeholder="Leave a comment!" />
             <button>Submit</button>

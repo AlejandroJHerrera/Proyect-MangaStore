@@ -11,7 +11,6 @@ class mangaController {
   }
 
   async addManga(req, res) {
-    debugger;
     // let [
     //   {
     //     mal_id,

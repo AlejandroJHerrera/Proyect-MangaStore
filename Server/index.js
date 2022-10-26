@@ -1,9 +1,10 @@
 const express = require('express'),
   app = express(),
-  port = 4000,
+  port = process.env.PORT || 4000,
   mongoose = require('mongoose'),
   mangaRoute = require('./routes/mangaRoutes'),
-  userRoute = require('./routes/userRoutes');
+  userRoute = require('./routes/userRoutes'),
+  categoryRoute = require('./routes/categoryRoutes');
 
 require('dotenv').config();
 
@@ -26,6 +27,17 @@ connecting();
 
 app.use('/manga', mangaRoute);
 app.use('/user', userRoute);
+app.use('/category', categoryRoute);
+
+const path = require('path');
+
+app.use(express.static(__dirname));
+app.use(express.static(path.join(__dirname, '../client/build')));
+
+app.get('/*', function (req, res) {
+  res.sendFile(path.join(__dirname, '../client/build', 'index.html'));
+});
+
 app.listen(port, () => {
   console.log('This server is running on port', port);
 });

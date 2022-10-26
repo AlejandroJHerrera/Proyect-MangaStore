@@ -4,7 +4,7 @@ const express = require('express'),
 
 //This route is for getting all manga inside DB//
 
-router.get('/', userController.findAll);
+router.get('/all', userController.findAll);
 
 //This route is for adding singular manga inside DB//
 

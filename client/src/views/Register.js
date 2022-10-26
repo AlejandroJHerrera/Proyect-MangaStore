@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { useState } from 'react';
-import axios from 'axios';
+import axios from '../config';
 
 function Register() {
   const [user, setUser] = useState({
@@ -23,7 +23,7 @@ function Register() {
     e.preventDefault();
     e.target.reset();
     console.log(user);
-    let url = 'http://localhost:4000/user/new';
+    let url = '/user/new';
     axios
       .post(url, user)
       .then((res) => {

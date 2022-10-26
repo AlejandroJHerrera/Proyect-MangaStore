@@ -1,12 +1,18 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import { useRecoilValue } from 'recoil';
+import { isLoged } from '../atoms';
+import snorlax from '../views/images/snorlax.gif';
 
 function NavBar() {
+  // const user = useRecoilValue(userInfoSelector);
+  const status = useRecoilValue(isLoged);
+
   return (
     <div className="NavBar">
       <div>
         <NavLink to={'/'}>
-          <p>Logo</p>
+          <img src={snorlax} alt="App logo" />
         </NavLink>
       </div>
       <div>
@@ -21,7 +27,13 @@ function NavBar() {
             <input type="text" />
           </li>
           <NavLink to={'/user/login'}>
-            <li>Login/Register</li>
+            {status ? (
+              <NavLink to={'/user/profile'}>
+                <li>USER</li>
+              </NavLink>
+            ) : (
+              <li>Login/Register</li>
+            )}
           </NavLink>
         </ul>
       </div>

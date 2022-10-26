@@ -1,6 +1,6 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
-import axios from 'axios';
+import axios from '../config';
 import { NavLink } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import { mangasState } from '../atoms';
@@ -34,7 +34,7 @@ function Home() {
   // };
 
   const mangaCollection = () => {
-    let url = 'http://localhost:4000/manga/';
+    let url = '/manga/';
     axios
       .get(url)
       .then((res) => {
@@ -66,11 +66,14 @@ function Home() {
 
   return (
     <div className="header">
-      <h1>Top Manga</h1>
+      <div className="headerTitle">
+        <h1>Top Manga</h1>
+        <h1>Trending</h1>
+      </div>
       <div className="main">
         <div className="homeCollection">
           {mangas &&
-            mangas.map((e, i) => (
+            mangas.slice(0, 12).map((e, i) => (
               <NavLink to={`/manga/${e.mal_id}`} key={i}>
                 <div className="homeCard" key={i}>
                   <img src={e.images.webp.large_image_url} alt={e.title} />

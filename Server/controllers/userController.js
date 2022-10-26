@@ -41,6 +41,7 @@ class userController {
   }
 
   async login(req, res) {
+    debugger;
     const { email, password } = req.body;
     if (!email || !password)
       return res.json({ ok: false, message: 'All fields required' });
@@ -56,9 +57,13 @@ class userController {
         });
       const match = await argon2.verify(User.password, password);
       if (match) {
-        const token = jwt.sign({ userEmail: User.email }, jwt_secret, {
-          expiresIn: '1hr',
-        });
+        const token = jwt.sign(
+          { userEmail: User.email, userName: User.name },
+          jwt_secret,
+          {
+            expiresIn: '1hr',
+          }
+        );
         res.json({ ok: true, message: 'Welcome back', token, email });
       } else return res.json({ ok: false, message: 'Invalid data provided' });
     } catch (error) {
@@ -72,7 +77,7 @@ class userController {
     jwt.verify(token, jwt_secret, (err, succ) => {
       err
         ? res.json({ ok: false, message: 'something went wrong' })
-        : res.json({ pk: true, succ });
+        : res.json({ ok: true, succ });
     });
   };
 
@@ -88,21 +93,22 @@ class userController {
   }
 
   async updateUser(req, res) {
-    let { name, newName } = req.body;
+    console.log(req.body._id);
     try {
-      const updated = await user.updateOne({ name }, { name: newName });
-      res.send({ updated });
-    } catch (error) {
-      res.send({ error });
+      const User = await user.findOne({ _id: req.body._id });
+      Object.assign(User, req.body);
+      User.save();
+      res.send({ data: User });
+    } catch {
+      res.send({ error: 'No user with that Id' });
     }
   }
 
   async searchUser(req, res) {
     let email = req.params;
-    debugger;
     try {
       const result = await user.findOne(email);
-      res.send({ result });
+      res.send(result);
     } catch (error) {
       res.send({ error });
     }
