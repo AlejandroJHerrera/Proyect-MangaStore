@@ -5,7 +5,6 @@ import { isLoged } from '../atoms';
 import snorlax from '../views/images/snorlax.gif';
 
 function NavBar() {
-  // const user = useRecoilValue(userInfoSelector);
   const status = useRecoilValue(isLoged);
 
   return (
