@@ -11,6 +11,10 @@
 
 .NavBar ul {
   list-style-type: none;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
 }
 
 .NavBar li {
@@ -20,6 +24,25 @@
 .NavBar a {
   text-decoration: none;
   color: white;
+}
+
+.searchResult {
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  width: 152px;
+  position: absolute;
+  left: 908px;
+  border: 2px solid black;
+  border-top: 2px solid white;
+}
+
+.searchResult a {
+  color: black;
+}
+
+.searchResult a h1 {
+  font-size: medium;
 }
 
 .main {
