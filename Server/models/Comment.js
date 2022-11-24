@@ -5,6 +5,7 @@ const commentSchema = new Schema(
   {
     name: { type: String },
     desc: { type: String },
+    mal_id: { type: Number },
   },
   { timestamps: true }
 );

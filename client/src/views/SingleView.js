@@ -5,17 +5,32 @@ import { userInfoSelector } from '../atoms';
 import { Image } from 'cloudinary-react';
 import axios from 'axios';
 import snorlax from './images/288-2883219_transparent-snorlax-pokemon-snorlax-fusion-hd-png-download.png';
-import Comment from '../components/Comment';
 
 function SingleView() {
   const [single, setSingle] = useState();
+  const [comments, setComment] = useState([]);
+  const [newComment, setNewComment] = useState({
+    name: '',
+    desc: '',
+    mal_id: '',
+  });
   const user = useRecoilValue(userInfoSelector);
   let mangaId = useParams();
 
-  console.log(mangaId);
+  const getComments = async () => {
+    let url = `http://localhost:4000/comment/${mangaId.id}/getComment`;
+
+    await axios
+      .get(url)
+      .then((res) => {
+        let comment = res.data;
+        setComment(comment);
+      })
+      .catch((error) => console.log(error));
+  };
 
   const mangaInfo = () => {
-    let url = `https://api.jikan.moe/v4/manga/${mangaId.id}/full`;
+    let url = `https://bcs-cors-proxy.herokuapp.com/https://api.jikan.moe/v4/manga/${mangaId.id}/full`;
     axios
       .get(url)
       .then((res) => {
@@ -27,8 +42,30 @@ function SingleView() {
 
   useEffect(() => {
     mangaInfo();
+    getComments();
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
+  const handleOnChange = (e) => {
+    setNewComment({
+      name: !user ? 'Anonymous' : user.name,
+      desc: e.target.value,
+      mal_id: mangaId.id,
+    });
+  };
+
+  const handleOnSubmit = (e) => {
+    e.target.reset();
+    e.preventDefault();
+    let url = `http://localhost:4000/comment/${mangaId.id}/addComment`;
+    axios
+      .post(url, newComment)
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
   return (
     <div className="singleViewMain">
       <div className="singleViewHeader">
@@ -57,7 +94,7 @@ function SingleView() {
       <div className="commentSection">
         <h1>Comment Section</h1>
         <div className="commentForm">
-          <form>
+          <form onSubmit={handleOnSubmit}>
             {user ? (
               <Image
                 style={{ width: 100 }}
@@ -67,12 +104,24 @@ function SingleView() {
             ) : (
               <img src={snorlax} alt="default snorlax" style={{ width: 50 }} />
             )}
-            <input type="text" placeholder="Leave a comment!" />
+            <input
+              type="text"
+              placeholder="Leave a comment!"
+              onChange={handleOnChange}
+            />
             <button>Submit</button>
           </form>
         </div>
         <div className="commentView">
-          <Comment />
+          {comments &&
+            comments.map((item, i) => (
+              <div className="cItem" key={i}>
+                <div className="cTitle">
+                  <h1>{item.name}</h1>
+                  <span>{item.desc}</span>
+                </div>
+              </div>
+            ))}
         </div>
       </div>
     </div>

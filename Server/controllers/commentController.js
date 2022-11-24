@@ -6,7 +6,6 @@ class commentController {
   async addComment(req, res) {
     let mal_id = req.params.id;
     let newComment = new comment(req.body);
-
     try {
       const savedComment = await newComment.save();
       try {
@@ -22,6 +21,16 @@ class commentController {
       res.status(200).json(savedComment);
     } catch (error) {
       return res.json({ ok: false, message: 'Comment not saved' });
+    }
+  }
+
+  async getComment(req, res) {
+    let id = req.params.id;
+    try {
+      const allComments = await comment.find({ mal_id: id });
+      res.status(200).json(allComments);
+    } catch (error) {
+      res.json(error);
     }
   }
 }

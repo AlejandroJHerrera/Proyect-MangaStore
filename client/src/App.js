@@ -12,6 +12,7 @@ import axios from 'axios';
 import UserProfile from './views/UserProfile';
 import { useSetRecoilState } from 'recoil';
 import { isLoged } from './atoms';
+import Footer from './components/Footer';
 
 function App() {
   const [isLogedIn, setIsLogedIn] = useState(null);
@@ -65,7 +66,7 @@ function App() {
             element={<UserProfile logout={logout} />}
           />
         </Routes>
-        {/* <Footer/> */}
+        <Footer />
       </Router>
     </div>
   );
