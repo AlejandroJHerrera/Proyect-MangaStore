@@ -5,11 +5,14 @@ import { userInfoSelector } from '../atoms';
 import { Image } from 'cloudinary-react';
 import axios from 'axios';
 import snorlax from './images/288-2883219_transparent-snorlax-pokemon-snorlax-fusion-hd-png-download.png';
+import Comment from '../components/Comment';
 
 function SingleView() {
   const [single, setSingle] = useState();
   const user = useRecoilValue(userInfoSelector);
   let mangaId = useParams();
+
+  console.log(mangaId);
 
   const mangaInfo = () => {
     let url = `https://api.jikan.moe/v4/manga/${mangaId.id}/full`;
@@ -52,7 +55,7 @@ function SingleView() {
         </div>
       </div>
       <div className="commentSection">
-        <h1>Comments</h1>
+        <h1>Comment Section</h1>
         <div className="commentForm">
           <form>
             {user ? (
@@ -69,7 +72,7 @@ function SingleView() {
           </form>
         </div>
         <div className="commentView">
-          <span>This is the comments left by other users</span>
+          <Comment />
         </div>
       </div>
     </div>

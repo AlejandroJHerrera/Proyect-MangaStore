@@ -19,6 +19,7 @@ const mangaSchema = new Schema(
     chapters: { type: mongoose.Schema.Types.Mixed },
     publishing: { type: String, required: true },
     score: { type: mongoose.Schema.Types.Mixed },
+    comment: { type: [String] },
   },
 
   { strictQuery: false }

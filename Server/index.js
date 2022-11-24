@@ -4,7 +4,8 @@ const express = require('express'),
   mongoose = require('mongoose'),
   mangaRoute = require('./routes/mangaRoutes'),
   userRoute = require('./routes/userRoutes'),
-  categoryRoute = require('./routes/categoryRoutes');
+  categoryRoute = require('./routes/categoryRoutes'),
+  commentRoute = require('./routes/commentRoute');
 
 require('dotenv').config();
 
@@ -28,6 +29,7 @@ connecting();
 app.use('/manga', mangaRoute);
 app.use('/user', userRoute);
 app.use('/category', categoryRoute);
+app.use('/comment', commentRoute);
 
 const path = require('path');
 
