@@ -30,7 +30,7 @@ function SingleView() {
   };
 
   const mangaInfo = () => {
-    let url = `https://bcs-cors-proxy.herokuapp.com/https://api.jikan.moe/v4/manga/${mangaId.id}/full`;
+    let url = `https://api.jikan.moe/v4/manga/${mangaId.id}/full`;
     axios
       .get(url)
       .then((res) => {

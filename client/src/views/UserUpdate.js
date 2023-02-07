@@ -5,6 +5,7 @@ import { userInfoSelector } from '../atoms';
 
 function UserUpdate() {
   const userId = useRecoilValue(userInfoSelector);
+
   const [update, setUpdate] = useState({
     name: '',
     lastName: '',
@@ -20,7 +21,6 @@ function UserUpdate() {
       ...update,
       [e.target.name]: e.target.value,
     });
-    console.log(update);
   };
 
   const onSubmit = (e) => {

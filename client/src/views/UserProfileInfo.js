@@ -70,7 +70,7 @@ function UserProfileInfo(prop) {
           <p>user country: {currentUser && currentUser.country}</p>
           <p>comment count: 0</p>
           <p>likes count: 0</p>
-          <p>favourite count: 0</p>
+          <p>favorite count: 0</p>
           <article>user about: {currentUser && currentUser.about}</article>
           <button onClick={updateClick}> Update your profile</button>
         </div>

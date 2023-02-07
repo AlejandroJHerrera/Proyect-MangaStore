@@ -26,7 +26,7 @@ class userController {
       const user1 = await user.findOne({ email });
       if (user1) return res.json({ ok: false, message: 'Invalid credentials' });
       const hash = await argon2.hash(password);
-      console.log('hash ==> ', hash);
+
       const newUser = {
         name,
         lastName,
@@ -41,7 +41,6 @@ class userController {
   }
 
   async login(req, res) {
-    debugger;
     const { email, password } = req.body;
     if (!email || !password)
       return res.json({ ok: false, message: 'All fields required' });
@@ -61,7 +60,7 @@ class userController {
           { userEmail: User.email, userName: User.name },
           jwt_secret,
           {
-            expiresIn: '1hr',
+            expiresIn: '1h',
           }
         );
         res.json({ ok: true, message: 'Welcome back', token, email });
@@ -72,7 +71,6 @@ class userController {
   }
 
   verify_token = (req, res) => {
-    console.log(req.headers.authorization);
     const token = req.headers.authorization;
     jwt.verify(token, jwt_secret, (err, succ) => {
       err
@@ -83,7 +81,7 @@ class userController {
 
   async delUser(req, res) {
     let id = req.body;
-    console.log(id);
+
     try {
       const removed = await user.deleteOne(id);
       res.send({ removed });
@@ -93,7 +91,6 @@ class userController {
   }
 
   async updateUser(req, res) {
-    console.log(req.body._id);
     try {
       const User = await user.findOne({ _id: req.body._id });
       Object.assign(User, req.body);
