@@ -1,0 +1,17 @@
+{
+  "name": "MangaViewerv1",
+  "version": "1.0.0",
+  "description": "this is an app to watch and explore manga",
+  "main": "./Server/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "cd ./Server && node index.js"
+  },
+  "engines": {
+    "node": "16.x"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {}
+}

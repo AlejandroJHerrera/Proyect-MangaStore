@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import { userInfoSelector } from '../atoms';
 import { Image } from 'cloudinary-react';
-import axios from 'axios';
+import axios from '../config';
 import snorlax from './images/288-2883219_transparent-snorlax-pokemon-snorlax-fusion-hd-png-download.png';
 
 function SingleView() {
@@ -18,7 +18,7 @@ function SingleView() {
   let mangaId = useParams();
 
   const getComments = async () => {
-    let url = `http://localhost:4000/comment/${mangaId.id}/getComment`;
+    let url = `comment/${mangaId.id}/getComment`;
 
     await axios
       .get(url)
@@ -56,7 +56,7 @@ function SingleView() {
   const handleOnSubmit = (e) => {
     e.target.reset();
     e.preventDefault();
-    let url = `http://localhost:4000/comment/${mangaId.id}/addComment`;
+    let url = `/comment/${mangaId.id}/addComment`;
     axios
       .post(url, newComment)
       .then((res) => {
