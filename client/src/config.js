@@ -2,8 +2,8 @@ import axios from 'axios';
 
 const URL =
   window.location.hostname === 'localhost'
-    ? 'http://localhost:4000'
-    : 'http://';
+    ? 'https://localhost:4000'
+    : 'https://';
 
 const customInstance = axios.create({
   baseURL: URL,
