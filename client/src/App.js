@@ -8,7 +8,7 @@ import Register from './views/Register';
 import PasswordReset from './views/PasswordReset';
 import { useState, useEffect } from 'react';
 import Library from './views/Library';
-import axios from 'axios';
+import axios from './config';
 import UserProfile from './views/UserProfile';
 import { useSetRecoilState } from 'recoil';
 import { isLoged } from './atoms';
@@ -21,7 +21,7 @@ function App() {
 
   useEffect(() => {
     const verify_token = async () => {
-      let url = 'http://localhost:4000/user/verify_token';
+      let url = '/user/verify_token';
       try {
         if (!token) {
           setIsLogedIn(false);
