@@ -1,17 +1,21 @@
 {
-  "name": "MangaViewerv1",
+  "name": "proyect",
   "version": "1.0.0",
-  "description": "this is an app to watch and explore manga",
+  "description": "",
   "main": "./server/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "cd ./server && node index.js"
   },
-  "engines": {
-    "node": "16.x"
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AlejandroJHerrera/Proyect-MangaStore.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "dependencies": {}
+  "bugs": {
+    "url": "https://github.com/AlejandroJHerrera/Proyect-MangaStore/issues"
+  },
+  "homepage": "https://github.com/AlejandroJHerrera/Proyect-MangaStore#readme"
 }
